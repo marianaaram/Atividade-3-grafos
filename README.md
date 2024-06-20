@@ -2,7 +2,7 @@
 
  
 ## **Alunos:**
-[![Build Status](https://dabuttonfactory.com/button.png?t=Mariana+Aram&f=Open+Sans-Bold&ts=12&tc=f6b26b&hp=26&vp=12&c=11&bgt=unicolored&bgc=fff2cc&shs=1&shc=ccc&sho=s)](https://github.com/marianaaram) [![Build Status](https://dabuttonfactory.com/button.png?t=Marcos+Victor&f=Open+Sans-Bold&ts=12&tc=f6b26b&hp=26&vp=12&c=11&bgt=unicolored&bgc=fff2cc&shs=1&shc=ccc&sho=s)](https://github.com/marcosVictorM) [![Build Status](https://dabuttonfactory.com/button.png?t=Yago++Garzon&f=Open+Sans-Bold&ts=12&tc=f6b26b&hp=26&vp=12&c=11&bgt=unicolored&bgc=fff2cc&shs=1&shc=ccc&sho=s)](https://github.com/yagogarzon)
+[![Build Status](https://dabuttonfactory.com/button.png?t=Mariana+Aram&f=Open+Sans-Bold&ts=19&tc=fff&hp=28&vp=13&c=11&bgt=unicolored&bgc=15d798)](https://github.com/marianaaram)  [![Build Status](https://dabuttonfactory.com/button.png?t=Yago+Garzon&f=Open+Sans-Bold&ts=19&tc=fff&hp=28&vp=13&c=11&bgt=unicolored&bgc=15d798)](https://github.com/yagogarzon)  [![Build Status](https://dabuttonfactory.com/button.png?t=Ana+Beatriz&f=Open+Sans-Bold&ts=19&tc=fff&hp=28&vp=13&c=11&bgt=unicolored&bgc=15d798)](https://github.com/Ana-Bea-S) 
 
 Esse projeto é um trabalho da matéria de grafos desenvolvido por alunos do 5º período de engenharia da computação.
 
