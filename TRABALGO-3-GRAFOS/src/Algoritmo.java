@@ -1,65 +1,110 @@
 import java.util.*;
 
+
+
 public class Algoritmo {
 
-class MaxFlow {
-    private int vertices;
-    private int[][] capacity;
-    private int[][] flow;
+     // Implementação do algoritmo de Edmonds-Karp
+     public static boolean algoritmoEdmondsKarp(int[][] capacidade, int numeroNos, int origem, int destino) {
+        int[][] redeResidual = new int[numeroNos][numeroNos];
+        for (int i = 0; i < numeroNos; i++) {
+            for (int j = 0; j < numeroNos; j++) {
+                redeResidual[i][j] = capacidade[i][j];
+            }
+        }
 
-    public MaxFlow(int vertices) {
-        this.vertices = vertices;
-        this.capacity = new int[vertices][vertices];
-        this.flow = new int[vertices][vertices];
+        int[] pai = new int[numeroNos]; // Array para armazenar caminhos
+        int fluxoMaximo = 0;
+
+        while (bfs(redeResidual, origem, destino, pai)) {
+            int fluxoCaminho = Integer.MAX_VALUE;
+            for (int v = destino; v != origem; v = pai[v]) {
+                int u = pai[v];
+                fluxoCaminho = Math.min(fluxoCaminho, redeResidual[u][v]);
+            }
+
+            for (int v = destino; v != origem; v = pai[v]) {
+                int u = pai[v];
+                redeResidual[u][v] -= fluxoCaminho;
+                redeResidual[v][u] += fluxoCaminho;
+            }
+
+            fluxoMaximo += fluxoCaminho;
+        }
+
+        // Se o fluxo máximo for igual à soma das capacidades dos nós destino, então foi possível atribuir médicos a todos os feriados.
+        return fluxoMaximo == somaCapacidadesNosDestino(capacidade, destino);
     }
 
-    public void addEdge(int from, int to, int capacity) {
-        this.capacity[from][to] = capacity;
-    }
+    // Busca em largura (BFS) para encontrar caminho aumentante
+    private static boolean bfs(int[][] redeResidual, int origem, int destino, int[] pai) {
+        int numeroNos = redeResidual.length;
+        boolean[] visitado = new boolean[numeroNos];
+        Arrays.fill(visitado, false);
 
-    private boolean bfs(int source, int sink, int[] parent) {
-        boolean[] visited = new boolean[vertices];
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(source);
-        visited[source] = true;
-        parent[source] = -1;
+        Queue<Integer> fila = new LinkedList<>();
+        fila.add(origem);
+        visitado[origem] = true;
+        pai[origem] = -1;
 
-        while (!queue.isEmpty()) {
-            int u = queue.poll();
+        while (!fila.isEmpty()) {
+            int u = fila.poll();
 
-            for (int v = 0; v < vertices; v++) {
-                if (!visited[v] && capacity[u][v] - flow[u][v] > 0) {
-                    queue.add(v);
-                    parent[v] = u;
-                    visited[v] = true;
+            for (int v = 0; v < numeroNos; v++) {
+                if (!visitado[v] && redeResidual[u][v] > 0) {
+                    if (v == destino) {
+                        pai[v] = u;
+                        return true;
+                    }
+                    fila.add(v);
+                    pai[v] = u;
+                    visitado[v] = true;
                 }
             }
         }
-        return visited[sink];
+
+        return false;
     }
 
-    public int edmondsKarp(int source, int sink) {
-        int maxFlow = 0;
-        int[] parent = new int[vertices];
+    // Calcula a soma das capacidades dos nós destino
+    private static int somaCapacidadesNosDestino(int[][] capacidade, int destino) {
+        int soma = 0;
+        int numeroNos = capacidade.length;
+        for (int i = 0; i < numeroNos; i++) {
+            soma += capacidade[i][destino];
+        }
+        return soma;
+    }
 
-        while (bfs(source, sink, parent)) {
-            int pathFlow = Integer.MAX_VALUE;
-            for (int v = sink; v != source; v = parent[v]) {
-                int u = parent[v];
-                pathFlow = Math.min(pathFlow, capacity[u][v] - flow[u][v]);
-            }
+    // Método para construir o grafo e resolver o problema
+    public static boolean resolverAtribuicaoMedicosFeriados(int numeroMedicos, int numeroFeriados, int[][] disponibilidadeMedicos, int[][] diasFeriados, int c) {
+        int origem = 0;
+        int destino = numeroMedicos + numeroFeriados + 1;
+        int numeroNos = numeroMedicos + numeroFeriados + 2;
 
-            for (int v = sink; v != source; v = parent[v]) {
-                int u = parent[v];
-                flow[u][v] += pathFlow;
-                flow[v][u] -= pathFlow;
-            }
+        int[][] capacidade = new int[numeroNos][numeroNos];
 
-            maxFlow += pathFlow;
+        // Nó de origem para médicos
+        for (int i = 1; i <= numeroMedicos; i++) {
+            capacidade[origem][i] = c;
         }
 
-        return maxFlow;
+        // Médicos para feriados
+        for (int i = 1; i <= numeroMedicos; i++) {
+            for (int j = 1; j <= numeroFeriados; j++) {
+                if (disponibilidadeMedicos[i-1][j-1] == 1) {
+                    capacidade[i][numeroMedicos + j] = 1;
+                }
+            }
+        }
+
+        // Feriados para destino
+        for (int j = 1; j <= numeroFeriados; j++) {
+            capacidade[numeroMedicos + j][destino] = 1;
+        }
+
+        return algoritmoEdmondsKarp(capacidade, numeroNos, origem, destino);
     }
 }
-    
-}
+
+

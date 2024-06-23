@@ -46,6 +46,58 @@ public class Medicos {
         }
     }
 
+
+
+    //Verificar disponibilidade 
+    void disponibilidade(String nomeMedico, String feriado) {
+        List<Medicos> medicos = Medicos.getListaMedicos();
+        List<Feriados> feriados = Feriados.getListaFeriados();
+
+        nomeMedico = nomeMedico.trim().toLowerCase(); 
+        feriado = feriado.trim().toLowerCase();
+
+        int diasDoMedico = -1;
+        int diasFeriado = -1;
+        int aux1 = 0;
+        int aux2 = 0;
+       
+        for (int i = 0; i < medicos.size(); i++) {
+            Medicos medico = medicos.get(i);
+            if(nomeMedico.equals(medico.nome.trim().toLowerCase())){
+                 diasDoMedico = medico.getDiasDisponiveis();
+                 aux1 = 1;
+                break;
+            }  
+        }
+        if(aux1 == 0){
+            System.out.println("\nMédico não encontrado!");
+            return; 
+        }
+       //Encontrar feriado
+        for (int i = 0; i < feriados.size(); i++) {
+            Feriados feriado2 = feriados.get(i);
+            if(feriado.equals(feriado2.getNome().trim().toLowerCase())){
+                diasFeriado = feriado2.getDuracao();
+                aux2 =1;
+                break;
+            }   
+        }
+        if(aux2 == 0){
+            System.out.println("\nFeriado não encontrado!"); 
+            return;
+        }
+
+        //Resposta
+        if (diasDoMedico < diasFeriado){
+            System.out.println("\nO médico não pode fazer plantão nesse feriado pois tem a duração maior do que seus dias disponiveis!");
+        }
+        else{
+            System.out.println("\nO médico pode trabalhar nesse feriado");
+        }
+    }
+
+
+
     // Método para obter o nome do médico
     public String getNome() {
         return nome;
@@ -75,6 +127,7 @@ public class Medicos {
             return false;
         }
     }
-   
+
+    
 
 }
