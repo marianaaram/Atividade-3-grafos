@@ -11,7 +11,7 @@ public class Hospital {
         System.out.println("Digite o numero de feriados a serem organizados: ");
         int quantidade_feriados = scanner.nextInt();
 
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         for (int i = 0; i < quantidade_feriados; i++) {
             System.out.println("\nDigite o nome do " + (i + 1) + "° feriado: ");
@@ -19,7 +19,7 @@ public class Hospital {
 
             System.out.println("\nDigite a quantidade de dias do feriado " + nome_feriado + ": ");
             int dias_feriado = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             Feriado feriado = new Feriado(nome_feriado);
             feriado.add_dias(dias_feriado);
@@ -30,7 +30,7 @@ public class Hospital {
 
         System.out.println("Digite o número de médicos:");
         int numero_medicos = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         for (int i = 0; i < numero_medicos; i++) {
             System.out.println("\nDigite o nome do médico: ");
@@ -38,7 +38,7 @@ public class Hospital {
 
             System.out.println("\nDigite a quantidade total de dias de férias que " + nome_medico + " pode trabalhar: ");
             int maximo_dias_trabalho_medico = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             maximoDiasTrabalhoPorMedico.put(nome_medico.toLowerCase(), maximo_dias_trabalho_medico);
             diasDisponiveisPorMedico.put(nome_medico.toLowerCase(), maximo_dias_trabalho_medico);
@@ -85,7 +85,7 @@ public class Hospital {
                         
                         System.out.println("");
                         int dia_trabalho = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
+                        scanner.nextLine();
 
                         LimparTela.limpar_console();
 
