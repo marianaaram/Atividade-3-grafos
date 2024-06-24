@@ -28,7 +28,7 @@ public class Hospital {
 
         LimparTela.limpar_console();
 
-        System.out.println("\nDigite o número de médicos:");
+        System.out.println("Digite o número de médicos:");
         int numero_medicos = scanner.nextInt();
         scanner.nextLine(); // Consume newline
 
