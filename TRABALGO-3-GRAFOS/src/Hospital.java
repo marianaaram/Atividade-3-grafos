@@ -97,7 +97,7 @@ public class Hospital {
                             if (total_dias_trabalho > maximo_dias_trabalho_medico) {
                                 total_dias_trabalho--;
                                 dias_disponiveis_medico++;
-                                System.out.println("Os médicos não podem trabalhar mas que " + maximo_dias_trabalho_medico + " dias de férias.");
+                                System.out.println("Os médicos não podem trabalhar mais que " + maximo_dias_trabalho_medico + " dias de férias.");
                                 System.out.println("");
                             } else if (dias_disponiveis_medico < 0) {
                                 total_dias_trabalho--;
@@ -107,6 +107,8 @@ public class Hospital {
                             } else if (feriado.confere_medico_trabalha_naquele_feriado(medico)) {
                                 System.out.println("Cada médico só pode trabalhar 01 (um) dia por feriado. Adicione " + medico + " para trabalhar em outro feriado");
                                 System.out.println("");
+                                total_dias_trabalho--;
+                                dias_disponiveis_medico++;
                             } else {
                                 feriado.medico_ferias_trabalhadas(dia_trabalho, medico);
                             }
