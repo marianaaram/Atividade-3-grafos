@@ -39,6 +39,10 @@ public class Feriado {
         return Lista_dias;
     }
 
+    public ArrayList<Dia> getDias() {
+        return dias;
+    }
+
     public boolean confere_feriado_tem_medico() {
         for (Dia dia : dias) {
             if (!dia.tem_medico) {
