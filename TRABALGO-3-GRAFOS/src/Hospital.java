@@ -5,12 +5,11 @@ public class Hospital {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         HashMap<String, Feriado> feriados = new HashMap<>();
+        HashMap<String, Integer> maximoDiasTrabalhoPorMedico = new HashMap<>();
+        HashMap<String, Integer> diasDisponiveisPorMedico = new HashMap<>();
 
         System.out.println("Digite o numero de feriados a serem organizados: ");
         int quantidade_feriados = scanner.nextInt();
-
-        System.out.println("\nDigite a quantidade total de dias de férias que um médico pode trabalhar: ");
-        int maximo_dias_trabalho = scanner.nextInt();
 
         scanner.nextLine(); // Consume newline
 
@@ -29,6 +28,24 @@ public class Hospital {
 
         LimparTela.limpar_console();
 
+        System.out.println("\nDigite o número de médicos:");
+        int numero_medicos = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        for (int i = 0; i < numero_medicos; i++) {
+            System.out.println("\nDigite o nome do médico: ");
+            String nome_medico = scanner.nextLine();
+
+            System.out.println("\nDigite a quantidade total de dias de férias que " + nome_medico + " pode trabalhar: ");
+            int maximo_dias_trabalho_medico = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            maximoDiasTrabalhoPorMedico.put(nome_medico.toLowerCase(), maximo_dias_trabalho_medico);
+            diasDisponiveisPorMedico.put(nome_medico.toLowerCase(), maximo_dias_trabalho_medico);
+        }
+
+        LimparTela.limpar_console();
+
         while (true) {
             System.out.println("Digite o nome do médico que deseja adicionar ou 0 para ver se existem médicos suficientes por cada dia de feriado:");
             String medico = scanner.nextLine();
@@ -39,6 +56,8 @@ public class Hospital {
                 break;
             } else {
                 int total_dias_trabalho = 0;
+                int maximo_dias_trabalho_medico = maximoDiasTrabalhoPorMedico.getOrDefault(medico.toLowerCase(), 0);
+                int dias_disponiveis_medico = diasDisponiveisPorMedico.getOrDefault(medico.toLowerCase(), 0);
                 while (true) {
                     System.out.println("Digite o feriado que " + medico + " irá trabalhar ou 0 para voltar ao cadastro de médico");
                     System.out.println("\nFeriados disponíveis:");
@@ -59,10 +78,11 @@ public class Hospital {
                         }
 
                         LimparTela.limpar_console();
+                        System.out.println("Dias restantes que " + medico + " pode ser escalado(a) para trabalhar durante as férias: " + dias_disponiveis_medico);
                         feriado.mostrar_dias_com_medico();
-                    
                         System.out.print("Digite qual dia do feriado que " + medico + " irá trabalhar:\n");
                         System.out.print("Dias para trabalho: " + feriado.getdias() + "\n");
+                        
                         System.out.println("");
                         int dia_trabalho = scanner.nextInt();
                         scanner.nextLine(); // Consume newline
@@ -73,9 +93,16 @@ public class Hospital {
                             System.out.println("Dia inválido.");
                         } else {
                             total_dias_trabalho++;
-                            if (total_dias_trabalho > maximo_dias_trabalho) {
+                            dias_disponiveis_medico--;
+                            if (total_dias_trabalho > maximo_dias_trabalho_medico) {
                                 total_dias_trabalho--;
-                                System.out.println("Os médicos não podem trabalhar mas que " + maximo_dias_trabalho + " dias de férias.");
+                                dias_disponiveis_medico++;
+                                System.out.println("Os médicos não podem trabalhar mas que " + maximo_dias_trabalho_medico + " dias de férias.");
+                                System.out.println("");
+                            } else if (dias_disponiveis_medico < 0) {
+                                total_dias_trabalho--;
+                                dias_disponiveis_medico++;
+                                System.out.println("O médico " + medico + " não tem mais dias disponíveis de férias.");
                                 System.out.println("");
                             } else if (feriado.confere_medico_trabalha_naquele_feriado(medico)) {
                                 System.out.println("Cada médico só pode trabalhar 01 (um) dia por feriado. Adicione " + medico + " para trabalhar em outro feriado");
@@ -86,6 +113,7 @@ public class Hospital {
                         }
                     }
                 }
+                diasDisponiveisPorMedico.put(medico.toLowerCase(), dias_disponiveis_medico);
             }
         }
 

@@ -61,14 +61,14 @@ public class Feriado {
             }
         }
         if (algum_medico) {
-            System.out.println("Dia(s) com médico trabalhando no " + this.nome + ":");
+            System.out.println("\nDia(s) com médico trabalhando no " + this.nome + ":");
             for (Dia dia : dias) {
                 if (dia.tem_medico) {
                     System.out.println("Dia " + dia.dia);
                 }
             }
         } else {
-            System.out.println("Nenhum médico está trabalhando no " + this.nome + " ainda.");
+            System.out.println("\nNenhum médico está trabalhando no(a) " + this.nome + " ainda.");
         }
         System.out.println();
     }

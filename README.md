@@ -9,7 +9,6 @@ Esse projeto é um trabalho da matéria de grafos desenvolvido por alunos do 5º
 ## Objetivo
 Desenvolver um  algoritmo para organizar os horários de trabalho dos médicos em um grande hospital. 
 
-
 ## Funcionalidade
  Algoritmo eficiente que determine se é possível selecionar um médico para trabalhar em cada dia de férias, respeitando as seguintes restrições:
   
