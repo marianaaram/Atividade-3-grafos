@@ -101,6 +101,13 @@ public class Hospital {
         if (medico_suficiente) {
             System.out.println("Não existe médico suficiente para cada dia de feriado! Necessário reorganização!");
             System.out.println("");
+            System.out.println("Dias e médicos trabalhando em cada feriado:");
+            for (Feriado feriado : feriados.values()) {
+                System.out.println("Feriado: " + feriado.getNomeLower());
+                for (Dia dia : feriado.getDias()) {
+                      System.out.println("Dia " + dia.dia + ": " + dia.medicos);
+              }
+            }
         } else {
             System.out.println("Existe pelo menos um médico de plantão em cada dia de cada feriado!");
             System.out.println("");
